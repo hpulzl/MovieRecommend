@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.NavigationDrawerActivity" >
+
+    <item
+        android:id="@+id/ab_search"
+        android:orderInCategory="80"
+        android:icon="@mipmap/ic_search_white_24dp"
+        android:title="搜索"
+        app:showAsAction="ifRoom"/>
+        <item
+            android:id="@+id/action_login"
+            android:orderInCategory="100"
+            android:title="登录"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/action_logout"
+            android:orderInCategory="100"
+            android:title="退出"
+            app:showAsAction="never"/>
+</menu>
