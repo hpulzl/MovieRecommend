@@ -1,5 +1,6 @@
 package lzl.edu.com.movierecommend.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -41,7 +42,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     private TextView comingSoonTextView,hotMovieTextView,youLoveTextView;
 
     private Toolbar toolbar;
-
+    private Intent mIntent;
 
     private ImageView toolLineImageView;
     private int currentIndex;
@@ -52,10 +53,22 @@ public class NavigationDrawerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nativation_drawer);
         initView();
+        initToolBar();
         createFragment();
         initTabLineWidth();
     }
     private void initView(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //初始化参数
+        movieViewPager = (ViewPager) findViewById(R.id.moviePageViewPager);
+        toolLineImageView = (ImageView) findViewById(R.id.toolLineImageView);
+        comingSoonTextView = (TextView) findViewById(R.id.comingSoonTextView);
+        hotMovieTextView = (TextView) findViewById(R.id.hotMovieTextView);
+        youLoveTextView = (TextView) findViewById(R.id.youLoveTextView);
+
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+    private void initToolBar(){
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("首页");
         setSupportActionBar(toolbar);
@@ -66,17 +79,14 @@ public class NavigationDrawerActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ab_search:
                         Toast.makeText(NavigationDrawerActivity.this,"搜索",Toast.LENGTH_LONG).show();
+                        mIntent = new Intent(NavigationDrawerActivity.this,SearchMovieActivity.class);
+                        startActivity(mIntent);
                         break;
                     case R.id.action_login:
                         Toast.makeText(NavigationDrawerActivity.this,"分享",Toast.LENGTH_LONG).show();
@@ -96,13 +106,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
      * 创建Fragment的方法
       */
     private void createFragment(){
-        //初始化参数
-        movieViewPager = (ViewPager) findViewById(R.id.moviePageViewPager);
-        toolLineImageView = (ImageView) findViewById(R.id.toolLineImageView);
-        comingSoonTextView = (TextView) findViewById(R.id.comingSoonTextView);
-        hotMovieTextView = (TextView) findViewById(R.id.hotMovieTextView);
-        youLoveTextView = (TextView) findViewById(R.id.youLoveTextView);
-
         //创建Fragment
         hotMovieFragment = new HotMovieFragment();
         latestMovieFragment = new LatestMovieFragment();
@@ -144,7 +147,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_camera) {
-
+            mIntent = new Intent(this,SearchMovieActivity.class);
+            startActivity(mIntent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.SearchMovieActivity">
+    <item
+        android:id="@+id/tool_search"
+        android:title="搜索你喜欢的电影"
+        android:orderInCategory="80"
+        android:icon="@mipmap/ic_search_white_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:actionViewClass="android.widget.SearchView"
+        />
+</menu>
