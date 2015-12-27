@@ -1,6 +1,7 @@
 package lzl.edu.com.movierecommend.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,16 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.activity.fragment.HotMovieFragment;
@@ -28,7 +27,7 @@ import lzl.edu.com.movierecommend.activity.fragment.YouLoveMovieFragment;
 import lzl.edu.com.movierecommend.adapter.FragmentAdapter;
 
 public class NavigationDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener ,ViewPager.OnPageChangeListener,View.OnClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener{
     //自定义的viewPager
     private ViewPager movieViewPager;
     //装在Fragment的Adapter适配器
@@ -39,15 +38,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
     private LatestMovieFragment latestMovieFragment;//最新电影  0
     private YouLoveMovieFragment youLoveMovieFragment;//你喜欢的电影 1
 
-    private TextView comingSoonTextView,hotMovieTextView,youLoveTextView;
 
     private Toolbar toolbar;
     private Intent mIntent;
+    private List<String> titleList = new ArrayList<>();
 
-    private ImageView toolLineImageView;
-    private int currentIndex;
-    private int screenWidth;
-
+    private PagerSlidingTabStrip tabs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +51,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
         initView();
         initToolBar();
         createFragment();
-        initTabLineWidth();
     }
     private void initView(){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //初始化参数
         movieViewPager = (ViewPager) findViewById(R.id.moviePageViewPager);
-        toolLineImageView = (ImageView) findViewById(R.id.toolLineImageView);
-        comingSoonTextView = (TextView) findViewById(R.id.comingSoonTextView);
-        hotMovieTextView = (TextView) findViewById(R.id.hotMovieTextView);
-        youLoveTextView = (TextView) findViewById(R.id.youLoveTextView);
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -114,15 +106,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
         fragmentList.add(latestMovieFragment);
         fragmentList.add(youLoveMovieFragment);
         fragmentList.add(hotMovieFragment);
+        titleList.add("上映");
+        titleList.add("热播电影");
+        titleList.add("猜你喜欢");
         //设置到Adapter
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragmentList);
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragmentList,titleList);
         movieViewPager.setAdapter(fragmentAdapter);
+        tabs.setViewPager(movieViewPager);
+        tabs.setIndicatorColor(Color.WHITE);
+        tabs.setDuplicateParentStateEnabled(true);
         movieViewPager.setCurrentItem(0);
 
-        movieViewPager.setOnPageChangeListener(this);
-        comingSoonTextView.setOnClickListener(this);
-        hotMovieTextView.setOnClickListener(this);
-        youLoveTextView.setOnClickListener(this);
     }
 
     @Override
@@ -164,89 +158,5 @@ public class NavigationDrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolLineImageView
-                .getLayoutParams();
-
-        /**
-         * 利用currentIndex(当前所在页面)和position(下一个页面)以及offset来
-         * 设置mTabLineIv的左边距 滑动场景：
-         * 记3个页面,
-         * 从左到右分别为0,1,2
-         * 0->1; 1->2; 2->1; 1->0
-         */
-
-        if (currentIndex == 0 && position == 0)// 0->1
-        {
-            lp.leftMargin = (int) (positionOffset * (screenWidth * 1.0 / 3) + currentIndex
-                    * (screenWidth / 3));
-
-        } else if (currentIndex == 1 && position == 0) // 1->0
-        {
-            lp.leftMargin = (int) (-(1 - positionOffset)
-                    * (screenWidth * 1.0 / 3) + currentIndex
-                    * (screenWidth / 3));
-
-        } else if (currentIndex == 1 && position == 1) // 1->2
-        {
-            lp.leftMargin = (int) (positionOffset * (screenWidth * 1.0 / 3) + currentIndex
-                    * (screenWidth / 3));
-        } else if (currentIndex == 2 && position == 1) // 2->1
-        {
-            lp.leftMargin = (int) (-(1 - positionOffset)
-                    * (screenWidth * 1.0 / 3) + currentIndex
-                    * (screenWidth / 3));
-        }
-        toolLineImageView.setLayoutParams(lp);
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        currentIndex = position;
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-    /**
-     * 将Tab导航线的宽度设置为屏幕的1/3.
-     */
-    private void initTabLineWidth(){
-        DisplayMetrics dpMetrics = new DisplayMetrics();
-        getWindow().getWindowManager().getDefaultDisplay()
-                .getMetrics(dpMetrics);
-        screenWidth = dpMetrics.widthPixels;
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) toolLineImageView
-                .getLayoutParams();
-        lp.width = screenWidth / 3;
-        toolLineImageView.setLayoutParams(lp);
-    }
-    /**
-     * 设置点击哪一个Fragment
-     * @param item
-     */
-    private void showFragment(int item){
-        movieViewPager.setCurrentItem(item);
-    }
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.comingSoonTextView:
-                Toast.makeText(NavigationDrawerActivity.this,"即将上映",Toast.LENGTH_LONG).show();
-                showFragment(0);
-                break;
-            case R.id.hotMovieTextView:
-                showFragment(1);
-                break;
-            case R.id.youLoveTextView:
-                showFragment(2);
-                break;
-            default:
-                break;
-        }
     }
 }

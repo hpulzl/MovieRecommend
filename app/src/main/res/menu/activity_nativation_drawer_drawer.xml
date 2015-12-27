@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_search_white_24dp"
             android:title="搜索" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_home_white_24dp"
             android:title="首页" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@mipmap/ic_comment_white_24dp"
             android:title="微评" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@mipmap/ic_supervisor_account_white_24dp"
             android:title="好友" />
     </group>
 
@@ -24,15 +24,15 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@mipmap/ic_message_white_24dp"
                 android:title="消息" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@mipmap/ic_collections_bookmark_white_24dp"
                 android:title="收藏" />
             <item
                 android:id="@+id/nav_set"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@mipmap/ic_settings_white_24dp"
                 android:title="设置" />
         </menu>
     </item>

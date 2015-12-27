@@ -18,6 +18,7 @@ import java.util.Random;
 
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.activity.ScrollingMovieActivity;
+import lzl.edu.com.movierecommend.activity.base.BaseRecyclerAdapter;
 import lzl.edu.com.movierecommend.adapter.MyRecycleAdapter;
 import lzl.edu.com.movierecommend.entity.Movie;
 
@@ -59,7 +60,7 @@ public class LatestMovieFragment extends Fragment {
         latestMovieRecycleView.setLayoutManager(mLayoutManager);
         //设置每个item之间默认的动画效果
         latestMovieRecycleView.setItemAnimator(new DefaultItemAnimator());
-        recycleAdapter = new MyRecycleAdapter(mActivity,list);
+        recycleAdapter = new MyRecycleAdapter(latestMovieRecycleView, list);
 
         latestMovieRecycleView.setAdapter(recycleAdapter);
 
@@ -70,9 +71,9 @@ public class LatestMovieFragment extends Fragment {
 
     }
     private void initAdapterEvent(){
-        recycleAdapter.setOnItemClickListener(new MyRecycleAdapter.OnItemClickListener() {
+        recycleAdapter.setOnItemOnclickListener(new BaseRecyclerAdapter.OnItemOnclickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View view, Object obj, int position) {
                 Toast.makeText(mActivity,"您点击了"+position+"个按钮",Toast.LENGTH_SHORT).show();
                 mIntent = new Intent(mActivity, ScrollingMovieActivity.class);
                 startActivity(mIntent);

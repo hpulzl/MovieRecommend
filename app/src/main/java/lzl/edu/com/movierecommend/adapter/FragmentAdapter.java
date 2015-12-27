@@ -13,9 +13,11 @@ import java.util.List;
 public class FragmentAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> list = new ArrayList<Fragment>();
-    public FragmentAdapter(FragmentManager fm, List<Fragment> list) {
+    private List<String> titleList;
+    public FragmentAdapter(FragmentManager fm, List<Fragment> list,List<String> titileList) {
         super(fm);
         this.list = list;
+        this.titleList = titileList;
     }
     @Override
     public Fragment getItem(int position) {
@@ -25,5 +27,9 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return list.size();
+    }
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titleList.get(position);
     }
 }

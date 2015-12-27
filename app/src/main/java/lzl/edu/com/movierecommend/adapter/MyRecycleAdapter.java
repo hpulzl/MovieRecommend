@@ -1,87 +1,28 @@
 package lzl.edu.com.movierecommend.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import java.util.List;
 
 import lzl.edu.com.movierecommend.R;
+import lzl.edu.com.movierecommend.activity.base.BaseRecyclerAdapter;
+import lzl.edu.com.movierecommend.activity.base.RecyclerViewHolder;
 import lzl.edu.com.movierecommend.entity.Movie;
 
 /**
  * Created by admin on 2015/12/26.
  */
-public class MyRecycleAdapter extends RecyclerView.Adapter<MyRecycleAdapter.MyViewHolder> {
+public class MyRecycleAdapter extends BaseRecyclerAdapter<Movie> {
 
-    private List<Movie> list;
-    private LayoutInflater inflater;
-    private Context mContext;
-    public MyRecycleAdapter(Context context, List<Movie> movieList){
-        mContext = context;
-        list = movieList;
-        inflater = LayoutInflater.from(mContext);
-    }
-
-    /**
-     * 设置一个接口，监听点击事件的发生。
-     */
-    public interface OnItemClickListener{
-        //item点击
-        public void onItemClick(View view,int position);
-    }
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
+    public MyRecycleAdapter(RecyclerView view, List<Movie> datas) {
+        super(view, datas, R.layout.item_latestmovie);
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder holder = new MyViewHolder(inflater.
-                inflate(R.layout.item_latestmovie,parent,false));
-
-        return holder;
+    public void convert(RecyclerViewHolder holder, Movie item, int position, boolean isScrolling) {
+        //设置电影名称
+        holder.setText(R.id.movieNameTextView,item.getMovieName());
+        holder.setRateBar(R.id.gradeRatingBar,item.getStartNum());
+        holder.setImageResource(R.id.movieImageView,item.getUrlImage());
     }
-
-    @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-            Movie m = list.get(position);
-            holder.movieNameTextView.setText(m.getMovieName());
-            holder.movieImageView.setImageResource(m.getUrlImage());
-            holder.gradeRatingBar.setRating(m.getStartNum());
-        //给图片设置点击事件
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //设置接口的回调
-                onItemClickListener.onItemClick(holder.itemView,position);
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
-
-        ImageView movieImageView;
-        TextView movieNameTextView;
-        RatingBar gradeRatingBar;
-    public MyViewHolder(View itemView) {
-        super(itemView);
-
-        movieImageView = (ImageView) itemView.findViewById(R.id.movieImageView);
-        movieNameTextView = (TextView) itemView.findViewById(R.id.movieNameTextView);
-        gradeRatingBar = (RatingBar) itemView.findViewById(R.id.gradeRatingBar);
-    }
-}
 }
