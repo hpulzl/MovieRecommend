@@ -1,122 +1,56 @@
 package lzl.edu.com.movierecommend.activity;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import lzl.edu.com.movierecommend.R;
-import lzl.edu.com.movierecommend.activity.fragment.HotMovieFragment;
-import lzl.edu.com.movierecommend.activity.fragment.LatestMovieFragment;
-import lzl.edu.com.movierecommend.activity.fragment.YouLoveMovieFragment;
-import lzl.edu.com.movierecommend.adapter.FragmentAdapter;
+import lzl.edu.com.movierecommend.activity.fragment.CollectionsFragment;
+import lzl.edu.com.movierecommend.activity.fragment.CommentFragment;
+import lzl.edu.com.movierecommend.activity.fragment.FriendsFragment;
+import lzl.edu.com.movierecommend.activity.fragment.MessagesFragment;
+import lzl.edu.com.movierecommend.activity.fragment.MoviePagerFragment;
+import lzl.edu.com.movierecommend.activity.fragment.SearchFragment;
+import lzl.edu.com.movierecommend.activity.fragment.SettingFragment;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
-    //自定义的viewPager
-    private ViewPager movieViewPager;
-    //装在Fragment的Adapter适配器
-    private FragmentAdapter fragmentAdapter;
-    private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-    //三个Fragment
-    private HotMovieFragment hotMovieFragment;  //热播电影 2
-    private LatestMovieFragment latestMovieFragment;//最新电影  0
-    private YouLoveMovieFragment youLoveMovieFragment;//你喜欢的电影 1
 
 
-    private Toolbar toolbar;
-    private Intent mIntent;
-    private List<String> titleList = new ArrayList<>();
+    //主Fragement
+    private FragmentManager fragmentManager;
 
-    private PagerSlidingTabStrip tabs;
+    private CollectionsFragment collectionsFragment;  //收藏
+    private CommentFragment commentFragment;   //微评
+    private FriendsFragment friendsFragment;   //好友
+    private MessagesFragment messagesFragment; //消息
+    private SettingFragment settingFragment;  //设置
+    private MoviePagerFragment moviePagerFragment;  //首页
+    private SearchFragment searchFragment;  //搜索
+
+    private boolean isChangeMenu = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nativation_drawer);
         initView();
-        initToolBar();
-        createFragment();
+        selectItemFragment(R.id.nav_gallery);
     }
     private void initView(){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //初始化参数
-        movieViewPager = (ViewPager) findViewById(R.id.moviePageViewPager);
-        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-
+        //实例化
+        fragmentManager = getSupportFragmentManager();
         navigationView.setNavigationItemSelectedListener(this);
-    }
-    private void initToolBar(){
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
-        toolbar.setTitle("首页");
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ab_search:
-                        Toast.makeText(NavigationDrawerActivity.this,"搜索",Toast.LENGTH_LONG).show();
-                        mIntent = new Intent(NavigationDrawerActivity.this,SearchMovieActivity.class);
-                        startActivity(mIntent);
-                        break;
-                    case R.id.action_login:
-                        Toast.makeText(NavigationDrawerActivity.this,"分享",Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.action_logout:
-                        Toast.makeText(NavigationDrawerActivity.this,"设置",Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-    }
-
-    /**
-     * 创建Fragment的方法
-      */
-    private void createFragment(){
-        //创建Fragment
-        hotMovieFragment = new HotMovieFragment();
-        latestMovieFragment = new LatestMovieFragment();
-        youLoveMovieFragment = new YouLoveMovieFragment();
-        //添加
-        fragmentList.add(latestMovieFragment);
-        fragmentList.add(youLoveMovieFragment);
-        fragmentList.add(hotMovieFragment);
-        titleList.add("上映");
-        titleList.add("热播电影");
-        titleList.add("猜你喜欢");
-        //设置到Adapter
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragmentList,titleList);
-        movieViewPager.setAdapter(fragmentAdapter);
-        tabs.setViewPager(movieViewPager);
-        tabs.setIndicatorColor(Color.WHITE);
-        tabs.setDuplicateParentStateEnabled(true);
-        movieViewPager.setCurrentItem(0);
-
     }
 
     @Override
@@ -129,34 +63,160 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
-        return super.onCreateOptionsMenu(menu);
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Log.i("---------menu",menu.toString());
+        menu.clear();
+        if(isChangeMenu){
+            getMenuInflater().inflate(R.menu.add_fridends,menu);
+        }else {
+            getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-            mIntent = new Intent(this,SearchMovieActivity.class);
-            startActivity(mIntent);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        //选择Fragment
+        selectItemFragment(item.getItemId());
         return true;
+    }
+    private void selectItemFragment(int id){
+        // Handle navigation view item clicks here.
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        hideFragment(transaction);
+        switch (id){
+            case R.id.nav_camera:
+                //搜做Fragment
+                if( searchFragment == null){
+                    searchFragment = new SearchFragment();
+                    transaction.add(R.id.mFragment,searchFragment);
+                }else{
+                    transaction.show(searchFragment);
+                }
+                isChangeMenu = false;
+                break;
+            case R.id.nav_gallery:
+                //首页Fragment
+                if(moviePagerFragment == null){
+                    moviePagerFragment = new MoviePagerFragment();
+                    transaction.add(R.id.mFragment,moviePagerFragment);
+                }else{
+                    transaction.show(moviePagerFragment);
+                }
+                isChangeMenu = false;
+
+                break;
+            case R.id.nav_slideshow:
+                //微评Fragment
+                if(commentFragment == null){
+                    commentFragment = new CommentFragment();
+                    transaction.add(R.id.mFragment,commentFragment);
+                }else{
+                    transaction.show(commentFragment);
+                }
+                isChangeMenu = false;
+
+                break;
+            case R.id.nav_manage:
+                //好友Fragment
+                if(friendsFragment == null){
+                    friendsFragment = new FriendsFragment();
+                    transaction.add(R.id.mFragment,friendsFragment);
+                }else{
+                    transaction.show(friendsFragment);
+                }
+                isChangeMenu = true;
+                break;
+            case R.id.nav_share:
+                //消息Fragment
+                if(messagesFragment == null){
+                    messagesFragment = new MessagesFragment();
+                    transaction.add(R.id.mFragment,messagesFragment);
+                }else{
+                    transaction.show(messagesFragment);
+                }
+                isChangeMenu = false;
+
+                break;
+            case R.id.nav_send:
+                //收藏Fragment
+                if(collectionsFragment == null){
+                    collectionsFragment = new CollectionsFragment();
+                    transaction.add(R.id.mFragment,collectionsFragment);
+                }else{
+                    transaction.show(collectionsFragment);
+                }
+                isChangeMenu = false;
+
+                break;
+            case R.id.nav_set:
+                //设置Fragment
+                if(settingFragment == null){
+                    settingFragment = new SettingFragment();
+                    transaction.add(R.id.mFragment,settingFragment);
+                }else{
+                    transaction.show(settingFragment);
+                }
+                isChangeMenu = false;
+                break;
+            default:
+                break;
+        }
+        //通知更改menuItem
+        invalidateOptionsMenu();
+        //提交
+        transaction.commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ab_search:
+                Toast.makeText(this,"搜索",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_login:
+                Toast.makeText(this,"登录",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_logout:
+                Toast.makeText(this,"退出",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_add:
+                Toast.makeText(this,"添加好友",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 因此Fragment，避免冲突
+     * @param transaction
+     */
+    private void hideFragment(FragmentTransaction transaction){
+        if(searchFragment != null){
+            transaction.hide(searchFragment);
+        }
+        if(collectionsFragment != null){
+            transaction.hide(collectionsFragment);
+        }
+        if(moviePagerFragment!=null){
+         transaction.hide(moviePagerFragment);
+        }
+        if(commentFragment != null){
+            transaction.hide(commentFragment);
+        }
+        if(friendsFragment != null){
+            transaction.hide(friendsFragment);
+        }
+        if(messagesFragment != null){
+            transaction.hide(messagesFragment);
+        }
+        if(settingFragment != null){
+            transaction.hide(settingFragment);
+        }
     }
 }

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import lzl.edu.com.movierecommend.R;
 
 public class ScrollingMovieActivity extends AppCompatActivity {
-    private Toolbar Toolbar;
+    private Toolbar moviesToolbar;
     private CollapsingToolbarLayout toolbar_layout;
     private Intent mItent;
     @Override
@@ -23,7 +23,7 @@ public class ScrollingMovieActivity extends AppCompatActivity {
         initToolbar();
     }
     private void initToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.moviesToolbar);
         toolbar_layout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

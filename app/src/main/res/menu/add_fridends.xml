@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.SearchMovieActivity">
     <item
-        android:id="@+id/tool_search"
-        android:title="搜索你喜欢的电影"
+        android:id="@+id/action_add"
+        android:title="添加好友"
         android:orderInCategory="80"
-        android:icon="@mipmap/ic_search_white_24dp"
+        android:icon="@mipmap/ic_add_box_white_24dp"
         app:showAsAction="ifRoom|withText"
         android:actionViewClass="android.widget.SearchView"
         />

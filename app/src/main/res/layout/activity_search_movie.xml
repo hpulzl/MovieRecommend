@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lzl.edu.com.movierecommend.activity.SearchMovieActivity">
-
-    <include layout="@layout/toolbar"/>
+    tools:context="lzl.edu.com.movierecommend.activity.fragment.SearchFragment">
 
 </RelativeLayout>

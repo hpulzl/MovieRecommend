@@ -10,6 +10,8 @@
         android:icon="@mipmap/ic_search_white_24dp"
         android:title="搜索"
         app:showAsAction="ifRoom"/>
+
+    <group android:id="@+id/action_setting">
         <item
             android:id="@+id/action_login"
             android:orderInCategory="100"
@@ -20,4 +22,5 @@
             android:orderInCategory="100"
             android:title="退出"
             app:showAsAction="never"/>
+    </group>
 </menu>

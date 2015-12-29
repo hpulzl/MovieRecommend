@@ -20,9 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SearchMovieActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activity.ScrollingMovieActivity"
             android:label="@string/title_activity_scrolling_movie"
             android:theme="@style/AppTheme.NoActionBar"></activity>
