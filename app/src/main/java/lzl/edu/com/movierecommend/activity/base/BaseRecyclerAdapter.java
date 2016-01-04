@@ -3,7 +3,6 @@ package lzl.edu.com.movierecommend.activity.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         }else{
             dataList = datas;
         }
-        Log.i("itemId--",itemLayoutId+"");
-        Log.i("---------",view.getContext()+"");
         this.itemLayoutId = itemLayoutId;
         this.mContext = view.getContext();
 
@@ -63,7 +60,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View root = inflater.inflate(itemLayoutId,parent,false);
-
         return new RecyclerViewHolder(root);
     }
 
