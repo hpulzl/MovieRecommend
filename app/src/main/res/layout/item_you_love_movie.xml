@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    app:cardCornerRadius="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/cardview_light_background">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/mLoveMovieImageView"
+        android:src="@mipmap/image4"
+        android:layout_width="100dp"
+        android:layout_height="120dp" />
+    <RelativeLayout
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/movieTextView"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="寻龙诀"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/directorTextView"
+            android:layout_below="@id/movieTextView"
+            android:layout_marginTop="10dp"
+            android:text="导演:哈哈哈"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/roleTextView"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/directorTextView"
+            android:text="主演:嘻嘻嘻"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/collectionMovie"
+            android:layout_centerVertical="true"
+            android:background="@drawable/select_collection"
+            android:layout_alignParentRight="true"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:id="@+id/personNumTextView"
+            android:text="1234人收藏"
+            android:layout_below="@id/collectionMovie"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

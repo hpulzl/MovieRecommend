@@ -66,7 +66,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Log.i("---------menu",menu.toString());
         menu.clear();
         if(isChangeMenu){
             getMenuInflater().inflate(R.menu.add_fridends,menu);

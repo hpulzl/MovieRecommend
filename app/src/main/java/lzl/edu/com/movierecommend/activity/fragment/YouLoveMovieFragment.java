@@ -21,6 +21,9 @@ import java.util.List;
 
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.adapter.ImagePager;
+import lzl.edu.com.movierecommend.adapter.YouLoveMovieAdapter;
+import lzl.edu.com.movierecommend.animation.ZoomOutPageTransformer;
+import lzl.edu.com.movierecommend.entity.Movie;
 
 public class YouLoveMovieFragment extends Fragment {
     private Activity mActivity;
@@ -29,8 +32,10 @@ public class YouLoveMovieFragment extends Fragment {
     private int currentIndex;
     private List<ImageView> imageViewList;
     private static final int IMAGE_CHANGE = 0;
-    private final long DELAY_TIME = 2000;
+    private final long DELAY_TIME = 3000;
     private List<View> viewList;
+    private YouLoveMovieAdapter youLoveMovieAdapter;
+
     private android.os.Handler handler = new android.os.Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -62,11 +67,30 @@ public class YouLoveMovieFragment extends Fragment {
     private void initDataView(View view){
         youLoveRecyclerView = (RecyclerView) view.findViewById(R.id.youLoveRecyclerView);
         youLoveRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-
+        youLoveMovieAdapter = new YouLoveMovieAdapter(youLoveRecyclerView,getMovies());
+        youLoveRecyclerView.setAdapter(youLoveMovieAdapter);
         RecyclerViewHeader header = RecyclerViewHeader.fromXml(mActivity,R.layout.viewpager_header);
         header.attachTo(youLoveRecyclerView);
     }
 
+    /**
+     * 获取你喜欢的电影的数据
+     * @return
+     */
+    private List<Movie> getMovies(){
+        List<Movie> movieList = new ArrayList<>();
+        Movie m = new Movie();
+        m.setMovieName("寻龙诀");
+        m.setUrlImage(R.mipmap.image4);
+        m.setCollection(false);
+        m.setDirectorName("我是谁");
+        m.setRoleName("小天王");
+        m.setCollectionPersonNum(1000);
+        for(int i=0;i<10;i++) {
+            movieList.add(m);
+        }
+        return movieList;
+    }
     /**
      * 初始化imagePager图片
      * @param view
@@ -76,6 +100,7 @@ public class YouLoveMovieFragment extends Fragment {
         ImagePager imagePager = new ImagePager(getImages());
         getCircle(view);
         imagePagerHeader.setAdapter(imagePager);
+        imagePagerHeader.setPageTransformer(true,new ZoomOutPageTransformer());
         //自动轮播
         startChangeImages();
         //手动轮播

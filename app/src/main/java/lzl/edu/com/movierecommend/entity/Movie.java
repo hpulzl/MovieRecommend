@@ -1,6 +1,7 @@
 package lzl.edu.com.movierecommend.entity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by admin on 2015/12/26.
@@ -16,8 +17,58 @@ public class Movie {
     private String movieName;
     //评论
     private Integer startNum;
+    //导演
+    private String directorName;
+    //主演
+    private String roleName;
+    //收藏
+    private boolean isCollection;
+    //收藏统计
+    private Integer collectionPersonNum;
     //获取电影类别集合
     private List<Integer> moviesImage;
+    //某一类电影的集合
+    private Map<String,Movie> mapMovie;
+
+    public String getDirectorName() {
+        return directorName;
+    }
+
+    public Integer getCollectionPersonNum() {
+        return collectionPersonNum;
+    }
+
+    public void setCollectionPersonNum(Integer collectionPersonNum) {
+        this.collectionPersonNum = collectionPersonNum;
+    }
+
+    public void setDirectorName(String directorName) {
+        this.directorName = directorName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public boolean isCollection() {
+        return isCollection;
+    }
+
+    public void setCollection(boolean collection) {
+        isCollection = collection;
+    }
+
+    public Map<String, Movie> getMapMovie() {
+        return mapMovie;
+    }
+
+    public void setMapMovie(Map<String, Movie> mapMovie) {
+        this.mapMovie = mapMovie;
+    }
 
     public Integer getUrlImage() {
         return urlImage;
