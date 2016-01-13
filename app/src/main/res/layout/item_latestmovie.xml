@@ -4,14 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_marginLeft="5dp"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
+    android:layout_width="150dp"
+    android:layout_height="170dp"
     card_view:cardBackgroundColor="@color/cardview_light_background"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -25,10 +25,23 @@
                 android:text="黎明"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <RatingBar
-                android:id="@+id/gradeRatingBar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RatingBar
+            android:id="@+id/gradeRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:rating="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/lGrades"
+            android:textSize="10sp"
+            android:text="8.2分"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="8dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/lMovieNameTextView"
+        android:text="神探夏洛克"
+        android:textSize="18sp"
+        android:typeface="monospace"
+        android:textColor="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RatingBar
+            android:id="@+id/lRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:rating="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/lGrades"
+            android:text="8.2分"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/lDirectorTextView"
+        android:text="导演:詹姆斯.骡子"
+        android:singleLine="true"
+        android:maxEms="20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/lRoleTextView"
+        android:text="主演:罗振飞/李跃跃/张豹/陈荣真"
+        android:singleLine="true"
+        android:maxEms="20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <Button
+            android:id="@+id/wantSeeButton"
+            android:text="想看"
+            android:textColor="@color/colorLightGreen_label"
+            android:background="@drawable/select_button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp" />
+        <Button
+            android:id="@+id/hasSeenButton"
+            android:text="看过"
+            android:background="@drawable/select_button"
+            android:textColor="@color/colorLightGreen_label"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:text="简介"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/infoTextView"
+        android:text="@string/info"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+    <TextView
+        android:id="@+id/moreTextView"
+        android:text="更多"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorLightGreen_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:text="剧照"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <HorizontalScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <LinearLayout
+            android:id="@+id/mGallery"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </LinearLayout>
+    </HorizontalScrollView>
+    <TextView
+        android:text="评论"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

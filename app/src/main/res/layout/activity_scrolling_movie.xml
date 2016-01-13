@@ -40,6 +40,28 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_scrolling_movie" />
-
+    <!--<include layout="@layout/content_scrolling_movie" />-->
+     <!--   <android.support.v7.widget.RecyclerView
+            android:id="@+id/itemMovieRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>-->
+  <!--  <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+<LinearLayout
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/itemMovieRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</LinearLayout>
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 </android.support.design.widget.CoordinatorLayout>

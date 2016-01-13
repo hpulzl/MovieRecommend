@@ -29,6 +29,16 @@ public class Movie {
     private List<Integer> moviesImage;
     //某一类电影的集合
     private Map<String,Movie> mapMovie;
+    //获取电影的评论
+    private List<Comments> commentsList;
+
+    public List<Comments> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
+    }
 
     public String getDirectorName() {
         return directorName;
