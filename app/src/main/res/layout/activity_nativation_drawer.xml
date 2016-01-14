@@ -28,7 +28,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_nativation_drawer"
         app:menu="@menu/activity_nativation_drawer_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

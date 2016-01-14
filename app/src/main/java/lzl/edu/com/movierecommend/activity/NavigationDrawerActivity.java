@@ -1,5 +1,6 @@
 package lzl.edu.com.movierecommend.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -7,9 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import lzl.edu.com.movierecommend.R;
@@ -24,7 +26,7 @@ import lzl.edu.com.movierecommend.activity.fragment.SettingFragment;
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
-
+    private static final String TAG="NavigationDrawerActivity";
     //主Fragement
     private FragmentManager fragmentManager;
 
@@ -51,8 +53,18 @@ public class NavigationDrawerActivity extends AppCompatActivity
         //实例化
         fragmentManager = getSupportFragmentManager();
         navigationView.setNavigationItemSelectedListener(this);
-    }
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_nativation_drawer);
+        ImageView logoImageView = (ImageView) headerView.findViewById(R.id.logo_imageView);
 
+        final Intent mIntent = new Intent();
+        logoImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIntent.setClass(NavigationDrawerActivity.this,LoginActivity.class);
+                startActivity(mIntent);
+            }
+        });
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

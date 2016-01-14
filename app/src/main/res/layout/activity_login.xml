@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="lzl.edu.com.movierecommend.activity.LoginActivity">
+    <include
+        android:id="@+id/toolContent"
+        layout="@layout/toolbar"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@id/toolContent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_marginTop="20dp"
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            app:civ_border_width="2dp"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_color="#ffffff"
+            />
+           <android.support.design.widget.TextInputLayout
+               android:id="@+id/phoneInput"
+               app:errorEnabled="true"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <RelativeLayout
+                   android:layout_height="wrap_content"
+                   android:layout_width="match_parent"
+                   >
+               <lzl.edu.com.movierecommend.view.LoginEditText
+                   android:id="@+id/phoneTextView"
+                   android:paddingLeft="32dp"
+                   android:hint="用户名"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   />
+                   <ImageView
+                       android:src="@mipmap/ic_login_user"
+                       android:layout_alignLeft="@id/phoneTextView"
+                       android:layout_alignTop="@id/phoneTextView"
+                       android:layout_alignBottom="@id/phoneTextView"
+                       android:layout_width="30dp"
+                       android:layout_height="30dp" />
+               </RelativeLayout>
+           </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                app:errorEnabled="true"
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    >
+                <EditText
+                    android:id="@+id/passwordTextView"
+                    android:paddingLeft="32dp"
+                    android:hint="密码"
+                    android:paddingRight="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:inputType="numberPassword"
+                    />
+                    <ImageView
+                        android:src="@mipmap/ic_login_pass"
+                        android:layout_alignLeft="@id/passwordTextView"
+                        android:layout_alignTop="@id/passwordTextView"
+                        android:layout_alignBottom="@id/passwordTextView"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/visibleIv"
+                        android:src="@mipmap/ic_visible"
+                        android:layout_alignRight="@id/passwordTextView"
+                        android:layout_alignTop="@id/passwordTextView"
+                        android:layout_alignBottom="@id/passwordTextView"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:text="登录"
+            android:textSize="20dp"
+            android:background="@drawable/select_login_btn"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/forgetPassTextView"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="16sp"
+                android:text="忘记密码?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/registerTextView"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:text="注册"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <!--<View
+        android:background="@color/colorGray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>-->
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </LinearLayout>
+</RelativeLayout>
