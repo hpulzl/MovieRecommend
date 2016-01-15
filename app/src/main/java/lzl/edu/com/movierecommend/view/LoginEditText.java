@@ -39,7 +39,6 @@ public class LoginEditText extends EditText implements OnFocusChangeListener,Tex
 
 
     private void init() {
-        Log.i(TAG,"init.....");
         //从xml文件中获取资源文件
         mDrawable = getCompoundDrawables()[2];
         if(mDrawable == null){

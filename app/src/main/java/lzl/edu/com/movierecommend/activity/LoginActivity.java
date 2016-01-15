@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button loginBtn;
     private CheckValidate checkValidate;
     private ImageView visibleIv;
+    private String passNum;
+    private String phoneNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,13 +103,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void hideKeyboard() {
        new KeyboardUtil(this).hideKeyboard();
     }
+
     private void userLogin() {
-        String phoneNum = phoneEt.getText().toString();
-        String passNum = passEt.getText().toString();
         checkValidate = new CheckValidate();
-        Log.i(TAG,"手机号："+phoneNum+"密码："+passNum);
-       String phoneInfo =  checkPhone(phoneNum);
-        String passInfo = checkPass(passNum);
+        String phoneInfo =  checkPhone();
+        String passInfo = checkPass();
         if(phoneInfo !=null){
             phoneInput.setError(phoneInfo);
         }else if(passInfo !=null){
@@ -115,7 +115,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else{
             phoneInput.setErrorEnabled(false);
             passInput.setErrorEnabled(false);
-            
             doLogin();
         }
     }
@@ -124,11 +123,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //与网络连接，返回正常成功或失败
     }
 
-    private String checkPass(String passNum) {
+    private String checkPass() {
+         passNum = passEt.getText().toString();
         return checkValidate.checkPass(passNum);
     }
 
-    private String checkPhone(String phoneNum) {
+    private String checkPhone() {
+        phoneNum = phoneEt.getText().toString();
         return  checkValidate.checkPhone(phoneNum);
     }
 }

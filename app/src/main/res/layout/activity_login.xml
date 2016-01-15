@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content" />
                     <ImageView
                         android:id="@+id/visibleIv"
-                        android:src="@mipmap/ic_visible"
+                        android:src="@mipmap/ic_invisible"
                         android:layout_alignRight="@id/passwordTextView"
                         android:layout_alignTop="@id/passwordTextView"
                         android:layout_alignBottom="@id/passwordTextView"

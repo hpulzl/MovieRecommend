@@ -30,4 +30,6 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    //bmob-sms ：Bmob单独为短信服务提供的包
+    compile 'cn.bmob.android:bmob-sms:1.0.1'
 }

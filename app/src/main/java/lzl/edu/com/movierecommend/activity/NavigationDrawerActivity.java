@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import cn.bmob.sms.BmobSMS;
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.activity.fragment.CollectionsFragment;
 import lzl.edu.com.movierecommend.activity.fragment.CommentFragment;
@@ -45,6 +46,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nativation_drawer);
+        BmobSMS.initialize(this,"6ec3245380348b167e542544c487e6f8");
         initView();
         selectItemFragment(R.id.nav_gallery);
     }

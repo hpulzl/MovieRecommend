@@ -14,7 +14,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/nickNameInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -36,7 +39,11 @@
                 android:gravity="center"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
-
+</android.support.design.widget.TextInputLayout>
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/phoneRInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -59,6 +66,11 @@
                 android:gravity="center"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
+</android.support.design.widget.TextInputLayout>
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/passRInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -66,7 +78,7 @@
             <EditText
                 android:id="@+id/passwordEt"
                 android:paddingLeft="51dp"
-                android:hint="请输入验证码"
+                android:hint="请输入密码"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:inputType="numberPassword"
@@ -81,33 +93,46 @@
                 android:layout_width="50dp"
                 android:gravity="center"
                 android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/visibleRIv"
+                android:src="@mipmap/ic_invisible"
+                android:layout_width="30dp"
+                android:layout_alignRight="@id/passwordEt"
+                android:layout_alignTop="@id/passwordEt"
+                android:layout_alignBottom="@id/passwordEt"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
-
+</android.support.design.widget.TextInputLayout>
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/checkCodeRInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:id="@+id/myCheckCode"
+                android:id="@+id/checkCodeEt"
                 android:hint="验证码"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:inputType="numberPassword"
+                android:inputType="numberSigned"
                 />
             <Button
                 android:id="@+id/checkCodeBtn"
                 android:text="获取验证码"
-                android:textColor="#ffffff"
-                android:background="@drawable/select_login_btn"
+                android:textColor="@color/colorText"
+                android:background="@drawable/select_btn_check"
                 android:layout_marginLeft="40dp"
                 android:layout_width="130dp"
                 android:layout_height="45dp" />
         </LinearLayout>
+</android.support.design.widget.TextInputLayout>
         <Button
             android:id="@+id/registerBtn"
             android:text="注册"
             android:textSize="25sp"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorText"
             android:layout_marginTop="10dp"
             android:background="@drawable/select_login_btn"
             android:layout_width="match_parent"
