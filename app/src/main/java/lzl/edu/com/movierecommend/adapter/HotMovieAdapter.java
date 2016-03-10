@@ -9,7 +9,7 @@ import java.util.List;
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.activity.base.BaseRecyclerAdapter;
 import lzl.edu.com.movierecommend.activity.base.RecyclerViewHolder;
-import lzl.edu.com.movierecommend.entity.Movie;
+import lzl.edu.com.movierecommend.entity.movieentity.Movie;
 
 /**
  * Created by admin on 2015/12/30.
@@ -24,7 +24,7 @@ public class HotMovieAdapter extends BaseRecyclerAdapter<Movie> {
     public void convert(RecyclerViewHolder holder, Movie item, int position, boolean isScrolling) {
         holder.setText(R.id.movieMore,"更多");
         //电影类别
-        holder.setText(R.id.movieClassifyTextView,item.getMovieClassify());
+      /*  holder.setText(R.id.movieClassifyTextView,item.getMovieClassify());
         //获取电影类别图片集
         holder.setImageResource(R.id.movieImageView1,item.getMoviesImage().get(0));
         holder.setImageResource(R.id.movieImageView2,item.getMoviesImage().get(1));
@@ -32,7 +32,7 @@ public class HotMovieAdapter extends BaseRecyclerAdapter<Movie> {
 
         holder.setText(R.id.seenMovieTextView1,item.getSeenPerson().get(0)+"");
         holder.setText(R.id.seenMovieTextView2,item.getSeenPerson().get(1)+"");
-        holder.setText(R.id.seenMovieTextView3,item.getSeenPerson().get(2)+"");
+        holder.setText(R.id.seenMovieTextView3,item.getSeenPerson().get(2)+"");*/
     }
 
     @Override

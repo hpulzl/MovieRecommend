@@ -1,34 +1,51 @@
-package lzl.edu.com.movierecommend.entity;
+package lzl.edu.com.movierecommend.entity.movieentity;
 
 import java.util.List;
-import java.util.Map;
+
+import lzl.edu.com.movierecommend.entity.Comments;
 
 /**
  * Created by admin on 2015/12/26.
+ * 该类是电影基类
+ * 拥有所有电影类的共性特征
+ * 主要包括
+ * 电影Id|电影名称|导演名|评分|主演|图片路径|评论类|统计评分人数|简介
  */
 public class Movie {
-    //类别
-    private String movieClassify;
-    //看过
-    private List<Integer> seenPerson;
+    private String movieId;
+    //计算评分
+    private Integer startNum;
     //电影图片
-    private Integer urlImage;
+    @Deprecated
+    private int urlImage;
+    private String urlImg;
     //电影名称
     private String movieName;
-    //评论
-    private Integer startNum;
     //导演
     private String directorName;
     //主演
     private String roleName;
-    //收藏
-    private boolean isCollection;
-    //收藏统计
-    private Integer collectionPersonNum;
-    //获取电影类别集合
-    private List<Integer> moviesImage;
-    //某一类电影的集合
-    private Map<String,Movie> mapMovie;
+    //统计评分人数
+    private String totalPerson;
+    //简介
+    private String description;
+
+    public String getTotalPerson() {
+        return totalPerson;
+    }
+
+    public void setTotalPerson(String totalPerson) {
+        this.totalPerson = totalPerson;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     //获取电影的评论
     private List<Comments> commentsList;
 
@@ -44,12 +61,12 @@ public class Movie {
         return directorName;
     }
 
-    public Integer getCollectionPersonNum() {
-        return collectionPersonNum;
+    public String getUrlImg() {
+        return urlImg;
     }
 
-    public void setCollectionPersonNum(Integer collectionPersonNum) {
-        this.collectionPersonNum = collectionPersonNum;
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 
     public void setDirectorName(String directorName) {
@@ -64,20 +81,12 @@ public class Movie {
         this.roleName = roleName;
     }
 
-    public boolean isCollection() {
-        return isCollection;
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setCollection(boolean collection) {
-        isCollection = collection;
-    }
-
-    public Map<String, Movie> getMapMovie() {
-        return mapMovie;
-    }
-
-    public void setMapMovie(Map<String, Movie> mapMovie) {
-        this.mapMovie = mapMovie;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
     public Integer getUrlImage() {
@@ -95,7 +104,6 @@ public class Movie {
     public void setMovieName(String movieName) {
         this.movieName = movieName;
     }
-
     public Integer getStartNum() {
         return startNum;
     }
@@ -104,30 +112,7 @@ public class Movie {
         this.startNum = startNum;
     }
 
-    public String getMovieClassify() {
-        return movieClassify;
-    }
 
-    public void setMovieClassify(String movieClassify) {
-        this.movieClassify = movieClassify;
-    }
-
-
-    public List<Integer> getSeenPerson() {
-        return seenPerson;
-    }
-
-    public void setSeenPerson(List<Integer> seenPerson) {
-        this.seenPerson = seenPerson;
-    }
-
-    public List<Integer> getMoviesImage() {
-        return moviesImage;
-    }
-
-    public void setMoviesImage(List<Integer> moviesImage) {
-        this.moviesImage = moviesImage;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -143,5 +128,21 @@ public class Movie {
     @Override
     public int hashCode() {
         return movieName != null ? movieName.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieId='" + movieId + '\'' +
+                ", startNum=" + startNum +
+                ", urlImage=" + urlImage +
+                ", urlImg='" + urlImg + '\'' +
+                ", movieName='" + movieName + '\'' +
+                ", directorName='" + directorName + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", totalPerson='" + totalPerson + '\'' +
+                ", description='" + description + '\'' +
+                ", commentsList=" + commentsList +
+                '}';
     }
 }

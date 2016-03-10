@@ -23,7 +23,7 @@ import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.adapter.ImagePager;
 import lzl.edu.com.movierecommend.adapter.YouLoveMovieAdapter;
 import lzl.edu.com.movierecommend.animation.ZoomOutPageTransformer;
-import lzl.edu.com.movierecommend.entity.Movie;
+import lzl.edu.com.movierecommend.entity.movieentity.Movie;
 
 public class YouLoveMovieFragment extends Fragment {
     private Activity mActivity;
@@ -82,10 +82,10 @@ public class YouLoveMovieFragment extends Fragment {
         Movie m = new Movie();
         m.setMovieName("寻龙诀");
         m.setUrlImage(R.mipmap.image4);
-        m.setCollection(false);
+//        m.setCollection(false);
         m.setDirectorName("我是谁");
         m.setRoleName("小天王");
-        m.setCollectionPersonNum(1000);
+//        m.setCollectionPersonNum(1000);
         for(int i=0;i<10;i++) {
             movieList.add(m);
         }

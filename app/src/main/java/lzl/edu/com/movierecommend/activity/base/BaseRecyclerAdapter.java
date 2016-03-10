@@ -14,14 +14,58 @@ import java.util.List;
  * Created by admin on 2015/12/27.
  */
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
+    private static final String TAG="BaseRecyclerAdapter";
     protected List<T> dataList;
     protected Context mContext;
     protected int itemLayoutId;
     protected boolean isScrolling;
+    //headView
+    private static final int TYPE_HEADER = 0;
+    //正常的View
+    private static final int TYPE_NORMAL = 1;
+    //判断footer
+    private static final int TYPE_FOOTER = 2;
+    private View headerView;
+    private View footerView;
+    private int dataSize;
     private OnItemOnclickListener onItemOnclickListener;
 
     public interface OnItemOnclickListener{
-        void onItemClick(View view,Object obj,int position );
+        void onItemClick(View view,Object obj,int position);
+    }
+    public void setFooterView(View footerView){
+        this.footerView = footerView;
+        notifyDataSetChanged();
+    }
+    /**
+     * 在第一行item中插入HeaderView
+     * @param headerView
+     */
+    public void setHeaderView(View headerView) {
+        this.headerView = headerView;
+        notifyItemInserted(0);
+    }
+    public void setData(List<T> list){
+        dataList = list;
+    }
+    private int getRealPosition(int position){
+        return headerView ==null ? position : position-1;
+    }
+    /**
+     * 通过当前position来判断每个item的类型
+     * 如果postion=0并且HeaderView不为空，则是TYPE_HEADER类型
+     * 如果position=size+1且FooterView不为空，则为TYPE_FOOTER类型
+     * @param position
+     * @return
+     */
+    @Override
+    public int getItemViewType(int position) {
+        if(position==0 && headerView !=null){
+            return TYPE_HEADER;
+        }else if(position==dataList.size()+1 && footerView!=null){
+            return TYPE_FOOTER;
+        }
+        return TYPE_NORMAL;
     }
     //是否在滑动
     public BaseRecyclerAdapter(RecyclerView view, List<T> datas,int itemLayoutId){
@@ -58,6 +102,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(headerView!=null && viewType == TYPE_HEADER) {
+            return new RecyclerViewHolder(headerView);
+        }else if(footerView!=null && viewType == TYPE_FOOTER){
+            return new RecyclerViewHolder(footerView);
+        }
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View root = inflater.inflate(itemLayoutId,parent,false);
         return new RecyclerViewHolder(root);
@@ -65,16 +115,31 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        convert(holder,dataList.get(position),position,isScrolling);
+        if(headerView != null && getItemViewType(position) == TYPE_HEADER ){
+            return;
+        }
+        if(position == dataSize-1 && footerView !=null){
+            return;
+        }
+        int p = getRealPosition(position);
+        convert(holder,dataList.get(p),p,isScrolling);
         //设置点击事件
         holder.itemView.setOnClickListener(getOnClickListener(position));
     }
+   @Override
+   public int getItemCount() {
+       dataSize = dataList.size();
+       if(headerView!=null && footerView!=null){
+           dataSize = dataSize+2;
 
-    @Override
-    public int getItemCount() {
-        return dataList.size();
-    }
+           return dataSize;
+       }else if(headerView !=null ||footerView !=null){
+           dataSize = dataSize+1;
 
+           return dataSize;
+       }
+       return dataSize;
+   }
     public void setOnItemOnclickListener(OnItemOnclickListener l){
         onItemOnclickListener = l;
     }

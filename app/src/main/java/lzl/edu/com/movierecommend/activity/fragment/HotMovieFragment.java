@@ -23,7 +23,7 @@ import java.util.List;
 
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.adapter.HotMovieAdapter;
-import lzl.edu.com.movierecommend.entity.Movie;
+import lzl.edu.com.movierecommend.entity.movieentity.Movie;
 import lzl.edu.com.movierecommend.util.MovieLabel;
 
 public class HotMovieFragment extends Fragment {
@@ -82,9 +82,9 @@ public class HotMovieFragment extends Fragment {
         urlList.add(R.mipmap.image3);
         for(int i=0;i<5;i++){
             Movie m = new Movie();
-            m.setMovieClassify("经典片"+i);
+          /*  m.setMovieClassify("经典片"+i);
             m.setSeenPerson(seenList);
-            m.setMoviesImage(urlList);
+            m.setMoviesImage(urlList);*/
             hotMovieList.add(m);
         }
         return hotMovieList;

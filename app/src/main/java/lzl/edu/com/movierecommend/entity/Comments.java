@@ -38,4 +38,13 @@ public class Comments {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Comments{" +
+                "time='" + time + '\'' +
+                ", contents='" + contents + '\'' +
+//                ", user=" + this.getUser().getNickName() +"..."+this.getUser().getHeadImg()+"..."+this.getUser().getProvince()
+                +'}';
+    }
 }

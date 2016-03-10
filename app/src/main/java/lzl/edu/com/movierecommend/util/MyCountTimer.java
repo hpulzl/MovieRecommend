@@ -1,11 +1,11 @@
 package lzl.edu.com.movierecommend.util;
 
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.widget.Button;
 
 /**
  * Created by admin on 2016/1/15.
+ * 用于发送验证码的计时器。
  */
 public class MyCountTimer extends CountDownTimer{
     Button mBtn;

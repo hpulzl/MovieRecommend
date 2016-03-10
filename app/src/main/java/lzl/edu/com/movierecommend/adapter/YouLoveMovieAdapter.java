@@ -8,7 +8,7 @@ import java.util.List;
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.activity.base.BaseRecyclerAdapter;
 import lzl.edu.com.movierecommend.activity.base.RecyclerViewHolder;
-import lzl.edu.com.movierecommend.entity.Movie;
+import lzl.edu.com.movierecommend.entity.movieentity.Movie;
 
 /**
  * Created by admin on 2016/1/5.
@@ -25,7 +25,7 @@ public class YouLoveMovieAdapter extends BaseRecyclerAdapter<Movie> {
         holder.setText(R.id.directorTextView,item.getDirectorName());
         holder.setText(R.id.movieTextView,item.getMovieName());
         holder.setText(R.id.roleTextView,item.getRoleName());
-        holder.setText(R.id.personNumTextView,item.getCollectionPersonNum()+"");
+//        holder.setText(R.id.personNumTextView,item.getCollectionPersonNum()+"");
         holder.setImageResource(R.id.collectionMovie,R.drawable.select_collection);
 
         setClick(holder);

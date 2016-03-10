@@ -46,6 +46,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nativation_drawer);
+        //Bmob短信验证
         BmobSMS.initialize(this,"6ec3245380348b167e542544c487e6f8");
         initView();
         selectItemFragment(R.id.nav_gallery);

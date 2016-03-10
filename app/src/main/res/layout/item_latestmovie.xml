@@ -11,13 +11,13 @@
     card_view:cardCornerRadius="4dp">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/movieImageView"
-            android:src="@mipmap/image2"
-            android:layout_width="85dp"
+            android:layout_width="90dp"
             android:layout_height="100dp" />
             <TextView
                 android:layout_gravity="center"

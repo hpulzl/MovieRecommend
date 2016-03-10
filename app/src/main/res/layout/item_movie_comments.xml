@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     >
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/nickImageView"
         android:src="@mipmap/ic_launcher"
         android:layout_width="50dp"
@@ -36,10 +36,9 @@
     <TextView
         android:id="@+id/commentsTextView"
         android:layout_marginTop="5dp"
-        android:text="我要评论我的电影"
         android:layout_below="@id/mLinearLayout"
         android:layout_marginLeft="50dp"
-        android:maxEms="500"
+        android:maxEms="250"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView

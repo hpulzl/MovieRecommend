@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 <TextView
-    android:text="查看剩余100条评论"
+    android:text="加载更多数据"
     android:id="@+id/moreInfoTextView"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:textColor="@color/colorLightGreen"
     android:layout_width="match_parent"
     android:layout_height="50dp" />

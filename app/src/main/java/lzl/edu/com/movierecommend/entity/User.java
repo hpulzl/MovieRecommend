@@ -16,6 +16,24 @@ public class User {
     private String userMember;
     //唯一识别用户的id
     private String id;
+    private String province;
+    private String headImg;
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
     public Integer getNickImage() {
         return nickImage;
