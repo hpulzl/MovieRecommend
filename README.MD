@@ -6,6 +6,6 @@ android端的网络交互使用volley
 --------------------------------
 已经完成电影推荐界面。
 下面是图片展示效果：
-![](https://github.com/hpulzl/MovieRecommend/raw/master/image/home1.gif)
-![](https://github.com/hpulzl/MovieRecommend/raw/master/image/home2.gif)
-![](https://github.com/hpulzl/MovieRecommend/raw/master/image/home3.gif)
+![](https://github.com/hpulzl/MovieRecommend/raw/master/image/home1.png)
+![](https://github.com/hpulzl/MovieRecommend/raw/master/image/home2.png)
+![](https://github.com/hpulzl/MovieRecommend/raw/master/image/home3.png)
