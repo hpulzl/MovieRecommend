@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
-import lzl.edu.com.movierecommend.http.volleyutil.VolleySingleton;
+import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.http.volleyutil.VolleyUtil;
+import lzl.edu.com.movierecommend.util.ToastUtil;
 
 /**
  * Created by admin on 2015/12/27.
@@ -27,6 +28,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         viewArray = new SparseArray<View>();
     }
+
     /**
      * 获取所有的view。
      * @return
@@ -93,6 +95,11 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder{
     public RecyclerViewHolder setNetWorkImageUrl(int itemId, String url,Context context){
         NetworkImageView networkImageView = getView(itemId);
         networkImageView.setImageUrl(url, VolleyUtil.getImageLoader(context));
+        return this;
+    }
+    public RecyclerViewHolder setNetWorkImageUrl(int itemId,int imgId){
+        NetworkImageView networkImageView = getView(itemId);
+        networkImageView.setImageResource(imgId);
         return this;
     }
 }

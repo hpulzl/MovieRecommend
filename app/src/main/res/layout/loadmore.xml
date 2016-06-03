@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/loadMore_tv"
         android:layout_marginTop="20dp"
-        android:text=""
+        android:text="点击加载更多数据"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

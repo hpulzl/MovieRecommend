@@ -6,38 +6,34 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import lzl.edu.com.movierecommend.entity.movieentity.Movie;
-import lzl.edu.com.movierecommend.http.URLAddress;
+import lzl.edu.com.movierecommend.entity.MUser;
 
 /**
  * Created by admin on 2016/3/16.
  */
-public class JsonParseFriends implements JsonParseInterface<List<Movie>> {
+public class JsonParseFriends implements JsonParseInterface<List<MUser>> {
     @Override
-    public List<Movie> parseJsonByObject(List<Movie> result, JSONObject jsonObject) {
+    public List<MUser> parseJsonByObject(List<MUser> result, JSONObject jsonObject) {
         return null;
     }
 
     @Override
-    public List<Movie> parseJsonByArray(List<Movie> result, JSONArray jsonArray) {
-        List<Movie> movies = result;
-        try {
-        for (int i=0;i<jsonArray.length();i++){
+    public List<MUser> parseJsonByArray(List<MUser> result, JSONArray jsonArray) {
+        List<MUser> list = result;
+        for(int i=0;i<jsonArray.length();i++){
+            try {
+                MUser user = new MUser();
                 JSONObject jo = jsonArray.getJSONObject(i);
-                Movie m = new Movie();
-                m.setMovieId(jo.getString("movieId"));
-                m.setUrlImg(URLAddress.getRealUrlImg(jo.getString("imgUrl")));
-                m.setMovieName(jo.getString("movieName"));
-                m.setDirectorName(jo.getString("director"));
-                m.setRoleName(jo.getString("actor"));
-                m.setTotalPerson(jo.getString("clickNum"));
-                movies.add(m);
+                user.setHeadImg(jo.getString("headImg"));
+                user.setName(jo.getString("name"));
+                user.setUserID(jo.getString("userID"));
+                user.setMyFriend(jo.getBoolean("myFriend"));
+                user.setSex(jo.getInt("sex"));
+                list.add(user);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            return movies;
         }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
+            return list;
     }
 }

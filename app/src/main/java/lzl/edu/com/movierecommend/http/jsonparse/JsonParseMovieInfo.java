@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import lzl.edu.com.movierecommend.entity.movieentity.Movie;
 import lzl.edu.com.movierecommend.http.URLAddress;
-import lzl.edu.com.movierecommend.util.LogUtil;
 
 /**
  * Created by admin on 2016/3/9.
@@ -22,7 +21,6 @@ public class JsonParseMovieInfo implements JsonParseInterface<Movie> {
             m.setDescription(jsonObject.getString("description"));
             m.setUrlImg(URLAddress.getRealUrlImg(jsonObject.getString("imgUrl")));
             m.setStartNum(jsonObject.getInt("startNum"));
-            LogUtil.i("nihao",m.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }

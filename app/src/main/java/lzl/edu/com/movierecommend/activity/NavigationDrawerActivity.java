@@ -8,21 +8,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.bmob.sms.BmobSMS;
+import lzl.edu.com.movierecommend.filter.LoginFilter;
 import lzl.edu.com.movierecommend.R;
 import lzl.edu.com.movierecommend.activity.fragment.CollectionsFragment;
-import lzl.edu.com.movierecommend.activity.fragment.CommentFragment;
 import lzl.edu.com.movierecommend.activity.fragment.FriendsFragment;
+import lzl.edu.com.movierecommend.activity.fragment.HotCommentsFragment;
 import lzl.edu.com.movierecommend.activity.fragment.MessagesFragment;
 import lzl.edu.com.movierecommend.activity.fragment.MoviePagerFragment;
 import lzl.edu.com.movierecommend.activity.fragment.SearchFragment;
 import lzl.edu.com.movierecommend.activity.fragment.SettingFragment;
+import shareprefrence.OperateShareprefrence;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -32,12 +36,14 @@ public class NavigationDrawerActivity extends AppCompatActivity
     private FragmentManager fragmentManager;
 
     private CollectionsFragment collectionsFragment;  //收藏
-    private CommentFragment commentFragment;   //微评
+    private HotCommentsFragment commentFragment;   //微评
     private FriendsFragment friendsFragment;   //好友
     private MessagesFragment messagesFragment; //消息
     private SettingFragment settingFragment;  //设置
     private MoviePagerFragment moviePagerFragment;  //首页
     private SearchFragment searchFragment;  //搜索
+    private TextView userTv;
+    private boolean isLogin = false;
 
     private boolean isChangeMenu = false;
 
@@ -58,15 +64,30 @@ public class NavigationDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_nativation_drawer);
         ImageView logoImageView = (ImageView) headerView.findViewById(R.id.logo_imageView);
-
+        userTv = (TextView) headerView.findViewById(R.id.user_tv);
+        isLogin =  isLogin();
+        if(isLogin){
+            userTv.setText(OperateShareprefrence.loadShareprefrence(this).getNickName());
+        }else{
+            userTv.setText("请登录");
+        }
         final Intent mIntent = new Intent();
         logoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntent.setClass(NavigationDrawerActivity.this,LoginActivity.class);
-                startActivity(mIntent);
+                if(isLogin){  //如果为true，已经登录.点击之后进入个人中心
+                   mIntent.setClass(NavigationDrawerActivity.this,UserActivity.class);
+                    startActivity(mIntent);
+                }else{
+                    mIntent.setClass(NavigationDrawerActivity.this, LoginActivity.class);
+                    startActivity(mIntent);
+                    finish();
+                }
             }
         });
+    }
+    private boolean isLogin(){
+       return LoginFilter.isLogin(this);
     }
     @Override
     public void onBackPressed() {
@@ -128,7 +149,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             case R.id.nav_slideshow:
                 //微评Fragment
                 if(commentFragment == null){
-                    commentFragment = new CommentFragment();
+                    commentFragment = new HotCommentsFragment();
                     transaction.add(R.id.mFragment,commentFragment);
                 }else{
                     transaction.show(commentFragment);
@@ -204,6 +225,16 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("设置数据","requestCode="+requestCode+"resultCode="+resultCode);
+        switch (requestCode){
+            case 0:
+                userTv.setText(OperateShareprefrence.loadShareprefrence(this).getNickName());
+                break;
+        }
     }
 
     /**

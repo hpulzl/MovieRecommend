@@ -10,4 +10,11 @@
     android:textColor="@color/colorLightGreen"
     android:layout_width="match_parent"
     android:layout_height="50dp" />
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/loadMoreProgressBar"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 </LinearLayout>

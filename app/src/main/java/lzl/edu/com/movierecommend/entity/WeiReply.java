@@ -1,6 +1,8 @@
 package lzl.edu.com.movierecommend.entity;
 
-public class WeiReply {
+import java.io.Serializable;
+
+public class WeiReply implements Serializable{
 	private String wreplyID;
 	private String articleID;
 	private String userID;

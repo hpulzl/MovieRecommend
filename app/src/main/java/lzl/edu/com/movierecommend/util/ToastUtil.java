@@ -22,4 +22,7 @@ public class ToastUtil extends Toast {
     public static void toast(Context context,String info){
         Toast.makeText(context,info,Toast.LENGTH_SHORT).show();
     }
+    public static void analysisException(Context cxt,String message){
+        toast(cxt,message);
+    }
 }

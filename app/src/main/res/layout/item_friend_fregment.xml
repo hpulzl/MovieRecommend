@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    app:cardCornerRadius="4dp"
+    android:layout_marginLeft="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    card_view:cardBackgroundColor="@color/cardview_light_background">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/headImg_Network"
+            android:src="@mipmap/ic_userhead"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="75dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="75dp">
+            <TextView
+                android:id="@+id/username_tv"
+                android:textSize="15sp"
+                android:text="昵称"
+                android:textColor="@color/colorCyan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/sex_iv"
+                android:paddingTop="8dp"
+                android:src="@mipmap/ic_male"
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/attention_btn"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="+关注"
+            android:layout_weight="2"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/select_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

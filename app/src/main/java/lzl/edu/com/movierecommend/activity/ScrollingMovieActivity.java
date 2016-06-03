@@ -43,7 +43,6 @@ import lzl.edu.com.movierecommend.http.jsonparse.JsonParseComments;
 import lzl.edu.com.movierecommend.http.jsonparse.JsonParseMovieInfo;
 import lzl.edu.com.movierecommend.http.volleyutil.VolleyUtil;
 import lzl.edu.com.movierecommend.util.HandlerMsgNum;
-import lzl.edu.com.movierecommend.util.LogUtil;
 import lzl.edu.com.movierecommend.util.ToastUtil;
 
 public class ScrollingMovieActivity extends AppCompatActivity {
@@ -60,6 +59,13 @@ public class ScrollingMovieActivity extends AppCompatActivity {
     private List<Comments> commentsList = new ArrayList<>();
     private Movie movie = new Movie();
     private ContentLoadingProgressBar progressBar;
+    private int pageNum;
+    private boolean isLoadMore = false;
+    private TextView moreInfoTextView ;
+    private ContentLoadingProgressBar loadMoreProgressBar;
+    private View footer;
+    private int lastItem;
+    private LinearLayoutManager linearLayoutManager;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -67,18 +73,28 @@ public class ScrollingMovieActivity extends AppCompatActivity {
                 case HandlerMsgNum.REFRESH_ONE:
                    movie = (Movie) msg.obj;
                     initToolbar();
-                    getCommentList(0);
+                    getCommentList(1);
                     progressBar.hide();
                    break;
                 case HandlerMsgNum.REFRESH_ZERO:
+                    commentsList.clear();
                     commentsList = (List<Comments>) msg.obj;
-                    LogUtil.i(TAG,"comments..."+commentsList.size());
                     initComments();
+                    break;
+                case HandlerMsgNum.REFRESH_THREE:
+                    List<Comments> list = (ArrayList<Comments>) msg.obj;
+                    if(list.size()>0) {
+                        commentsList.addAll(list);
+                        itemMovieAdapter.notifyDataSetChanged();
+                    }else{
+                        isLoadMore = true;//表示没有更多数据
+                        moreInfoTextView.setText("没有更多评论信息");
+                        loadMoreProgressBar.hide();
+                    }
                     break;
             }
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,30 +104,55 @@ public class ScrollingMovieActivity extends AppCompatActivity {
 
     private void initComments() {
         recyclerView = (RecyclerView) findViewById(R.id.itemMovieRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         //这里先获取第一页的评论内容
         itemMovieAdapter = new ItemMovieAdapter(recyclerView,commentsList);
         setHeader(recyclerView);
         setFooter(recyclerView);
+        setRecyclerScrollListener();
         recyclerView.setAdapter(itemMovieAdapter);
     }
+    private void setRecyclerScrollListener() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if(lastItem+1 == itemMovieAdapter.getItemCount()&& newState == RecyclerView.SCROLL_STATE_IDLE){ //如果滑动到最后一个item，去加载数据
+                    if(!isLoadMore){  //没有更多数据
+                        pageNum++;
+                        getCommentList(pageNum);
+                    }
+                }
+            }
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+    }
     /**
      * 通过网络获取评论信息.
      * @return
      */
-    private void getCommentList(int pageNo){
-        String url = URLAddress.getURLPath("FindReplySer?movieId="+getExtras()+"&pageNo="+pageNo);
+    private void getCommentList(final int pageNo){
+        pageNum = pageNo;
+        String url = URLAddress.getURLPath("FindReplySer?movieId="+getExtras()+"&pageNo="+pageNum);
         VolleyUtil.sendJsonArrayRequest(this, url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) {
                 JsonParseComments jsonParseComments = new JsonParseComments();
                 Message msg = new Message();
-                msg.obj =  jsonParseComments.parseJsonByArray(new ArrayList<Comments>(),jsonArray);
-                msg.what = HandlerMsgNum.REFRESH_ZERO;
-                mHandler.sendMessage(msg);
+                msg.obj = jsonParseComments.parseJsonByArray(new ArrayList<Comments>(), jsonArray);
+                if(pageNo == 1) {
+                    msg.what = HandlerMsgNum.REFRESH_ZERO;
+                    mHandler.sendMessage(msg);
+                }else {
+                    msg.what = HandlerMsgNum.REFRESH_THREE;
+                    mHandler.sendMessage(msg);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -182,7 +223,9 @@ public class ScrollingMovieActivity extends AppCompatActivity {
     }
     private void setFooter(RecyclerView view){
         LayoutInflater inflater = LayoutInflater.from(this);
-        View footer = inflater.inflate(R.layout.item_scrollview_recycler_footer,view,false);
+         footer = inflater.inflate(R.layout.item_scrollview_recycler_footer,view,false);
+        moreInfoTextView = (TextView) footer.findViewById(R.id.moreInfoTextView);
+        loadMoreProgressBar = (ContentLoadingProgressBar) footer.findViewById(R.id.loadMoreProgressBar);
         itemMovieAdapter.setFooterView(footer);
     }
     private void setHeader(RecyclerView view){
@@ -201,12 +244,11 @@ public class ScrollingMovieActivity extends AppCompatActivity {
         TextView lRoleTextView = (TextView) header.findViewById(R.id.lRoleTextView);
         TextView infoTextView = (TextView) header.findViewById(R.id.infoTextView);
 
-        LogUtil.i(TAG,movie.toString());
         lMovieNameTextView.setText(movie.getMovieName());
         lGrades.setText(movie.getStartNum()+"分");
         lRatingBar.setRating(movie.getStartNum()/2);
-        lDirectorTextView.setText(movie.getDirectorName());
-        lRoleTextView.setText(movie.getRoleName());
+        lDirectorTextView.setText("导演:"+movie.getDirectorName());
+        lRoleTextView.setText("主演:"+movie.getRoleName());
         infoTextView.setText(movie.getDescription());
     }
     private void initScrollImage(View header){
@@ -235,8 +277,7 @@ public class ScrollingMovieActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home){
-            mIntent = new Intent(this,NavigationDrawerActivity.class);
-            startActivity(mIntent);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

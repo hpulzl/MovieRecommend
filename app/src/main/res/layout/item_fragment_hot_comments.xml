@@ -1,24 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/hotCommentFreshLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/latestMovieRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-    <TextView
-        android:id="@+id/reLoadData_tv"
-        android:layout_centerInParent="true"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/comment_toolbar"
         android:visibility="gone"
-        android:text="重新加载数据"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        />
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/cardview_light_background">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/headImg_Network"
+                android:src="@mipmap/ic_userhead"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/username_tv"
+                    android:textSize="15sp"
+                    android:text="昵称"
+                    android:textColor="@color/colorCyan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/publishTime_tv"
+                    android:text="5月28号"
+                    android:textColor="@color/colorGray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/content_tv"
+                    android:textSize="14sp"
+                    android:maxLines="3"
+                    android:text="@string/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp" />
+                <LinearLayout
+                    android:background="@color/colorgray100"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+                    <com.android.volley.toolbox.NetworkImageView
+                        android:id="@+id/movieImg_iv"
+                        android:layout_width="80dp"
+                        android:layout_height="100dp"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/movieName_tv"
+                            android:textSize="14sp"
+                            android:text="姓名:神探夏洛克"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/type_tv"
+                            android:textSize="14sp"
+                            android:text="类型:侦探片"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/timeLength_tv"
+                            android:textSize="14sp"
+                            android:text="时间:95分钟"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/timeOn_tv"
+                            android:textSize="14sp"
+                            android:text="上映时间:2015-08-28"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/director_tv"
+                            android:textSize="14sp"
+                            android:text="导演:李志磊"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/actor_tv"
+                            android:textSize="14sp"
+                            android:text="主演:李志磊/周杰伦/陈奕迅/林志玲"
+                            android:maxLength="20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/content_linear"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="180dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp">
+                    <ImageView
+                        android:id="@+id/zan_iv"
+                        android:src="@mipmap/ic_thumb_up_outline_grey600_18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/zan_tv"
+                        android:text="11"
+                        android:paddingRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/comment_iv"
+                        android:src="@mipmap/ic_transcribe_grey600_18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/comment_tv"
+                        android:text="评论"
+                        android:paddingRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/share_iv"
+                        android:src="@mipmap/ic_share_grey600_18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/share_tv"
+                        android:text="20"
+                        android:paddingRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

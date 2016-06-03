@@ -17,6 +17,7 @@ public class ItemMovieAdapter extends BaseRecyclerAdapter<Comments> {
     public ItemMovieAdapter(RecyclerView view, List<Comments> datas) {
         super(view, datas, R.layout.item_movie_comments);
     }
+
     @Override
     public void convert(RecyclerViewHolder holder, Comments item, int position, boolean isScrolling) {
         User u = item.getUser();

@@ -32,18 +32,25 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="185dp">
         <LinearLayout
             android:orientation="vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/movieImageView1"
             android:src="@mipmap/image1"
             android:layout_width="wrap_content"
             android:layout_height="150dp" />
+            <TextView
+                android:id="@+id/movieNameTv1"
+                android:text="电影名称"
+                android:textSize="12sp"
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/seenMovieTextView1"
                 android:text="12345人看过"
@@ -58,11 +65,18 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/movieImageView2"
                 android:src="@mipmap/image2"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp" />
+            <TextView
+                android:id="@+id/movieNameTv2"
+                android:text="电影名称"
+                android:textSize="12sp"
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/seenMovieTextView2"
                 android:text="12345人看过"
@@ -77,11 +91,18 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/movieImageView3"
                 android:src="@mipmap/image3"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp" />
+            <TextView
+                android:id="@+id/movieNameTv3"
+                android:text="电影名称"
+                android:textSize="12sp"
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/seenMovieTextView3"
                 android:text="12345人看过"

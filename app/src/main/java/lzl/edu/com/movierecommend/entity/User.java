@@ -7,6 +7,7 @@ package lzl.edu.com.movierecommend.entity;
  * 用户发布多条评论，一对多的关系。
  */
 public class User {
+    private String userid;
     //头像
     private Integer nickImage;
     //头像资源
@@ -18,6 +19,23 @@ public class User {
     private String id;
     private String province;
     private String headImg;
+    private String userphone;
+
+    public String getUserphone() {
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public String getHeadImg() {
         return headImg;

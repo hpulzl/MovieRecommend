@@ -1,6 +1,10 @@
 package lzl.edu.com.movierecommend.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,11 +16,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.bmob.sms.BmobSMS;
 import cn.bmob.sms.exception.BmobException;
 import cn.bmob.sms.listener.RequestSMSCodeListener;
 import cn.bmob.sms.listener.VerifySMSCodeListener;
 import lzl.edu.com.movierecommend.R;
+import lzl.edu.com.movierecommend.http.URLAddress;
+import lzl.edu.com.movierecommend.http.volleyutil.VolleyUtil;
 import lzl.edu.com.movierecommend.util.CheckValidate;
 import lzl.edu.com.movierecommend.util.KeyboardUtil;
 import lzl.edu.com.movierecommend.util.MyCountTimer;
@@ -38,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private String code;
     private String passNum;
     private String nickName;
+    private ProgressDialog waitDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +88,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             setSupportActionBar(loginToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
@@ -149,16 +164,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             phoneRInput.setErrorEnabled(false);
             nickNameInput.setErrorEnabled(false);
             CodeValidate();
-            if (isSendSuccess) {  //短信验证成功，再执行注册逻辑
+           /* if (isSendSuccess) {  //短信验证成功，再执行注册逻辑
                 doRegister();
-            }
+            }*/
         }
     }
     /**
      * 进行短信的验证
      */
     private void CodeValidate() {
-        String codeInfo = checkCode();
+        String codeInfo = checkCode();  //检查验证码是否为空
         if(codeInfo!=null){
             checkCodeRInput.setError(codeInfo);
         }else {
@@ -168,10 +183,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
-                            ToastUtil.toast(RegisterActivity.this, "短信验证成功");
                             isSendSuccess = true;
+                            doRegister();
                         } else {
-                            ToastUtil.toast(RegisterActivity.this, "验证码输入错误");
+                            ToastUtil.toast(RegisterActivity.this,"验证码输入错误！");
                             isSendSuccess = false;
                             timer.onFinish();
                             timer.cancel();
@@ -184,9 +199,49 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private void doRegister() {
+        waitDialog = new ProgressDialog(this);
+        waitDialog.setMessage("注册中...");
+        waitDialog.setCancelable(false);
+        waitDialog.show();
         //进行注册...
+        String url = URLAddress.getURLPath("UserRegister");
+        Map<String,String> userMap = new HashMap<>();
+        userMap.put("userphone",phoneNum);
+        userMap.put("password",passNum);
+        userMap.put("username",nickName);
+        JSONObject jsonObject = new JSONObject(userMap);
+        VolleyUtil.sendJsonObjectRequest(this, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                Message msg = new Message();
+                msg.obj = jsonObject;
+                mHandler.sendMessage(msg);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                ToastUtil.toast(RegisterActivity.this,"注册异常"+volleyError.getMessage());
+                waitDialog.dismiss();
+            }
+        });
     }
-
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            JSONObject jsonObject = (JSONObject) msg.obj;
+            try {
+                if(jsonObject.getBoolean("result")){
+                    ToastUtil.toast(RegisterActivity.this,"注册成功");
+                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                }else{
+                    ToastUtil.toast(RegisterActivity.this,"注册失败");
+                }
+                waitDialog.dismiss();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
     private String checkNickName() {
         nickName = nickNameEt.getText().toString();
         return checkValidate.checkNickName(nickName);

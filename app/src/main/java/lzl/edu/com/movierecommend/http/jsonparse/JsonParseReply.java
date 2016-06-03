@@ -6,34 +6,37 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import lzl.edu.com.movierecommend.entity.movieentity.Movie;
+import lzl.edu.com.movierecommend.entity.MUser;
+import lzl.edu.com.movierecommend.entity.movieentity.WeiReplyCustom;
 import lzl.edu.com.movierecommend.http.URLAddress;
 
 /**
  * Created by admin on 2016/3/16.
  */
-public class JsonParseReply implements JsonParseInterface<List<Movie>> {
+public class JsonParseReply implements JsonParseInterface<List<WeiReplyCustom>> {
     @Override
-    public List<Movie> parseJsonByObject(List<Movie> result, JSONObject jsonObject) {
+    public List<WeiReplyCustom> parseJsonByObject(List<WeiReplyCustom> result, JSONObject jsonObject) {
         return null;
     }
 
     @Override
-    public List<Movie> parseJsonByArray(List<Movie> result, JSONArray jsonArray) {
-        List<Movie> movies = result;
+    public List<WeiReplyCustom> parseJsonByArray(List<WeiReplyCustom> result, JSONArray jsonArray) {
+        List<WeiReplyCustom> customs = result;
         try {
         for (int i=0;i<jsonArray.length();i++){
                 JSONObject jo = jsonArray.getJSONObject(i);
-                Movie m = new Movie();
-                m.setMovieId(jo.getString("movieId"));
-                m.setUrlImg(URLAddress.getRealUrlImg(jo.getString("imgUrl")));
-                m.setMovieName(jo.getString("movieName"));
-                m.setDirectorName(jo.getString("director"));
-                m.setRoleName(jo.getString("actor"));
-                m.setTotalPerson(jo.getString("clickNum"));
-                movies.add(m);
+               //解析微评回复内容
+                WeiReplyCustom weiReplyCustom = new WeiReplyCustom();
+                weiReplyCustom.setWreplyID(jo.getString("wreplyID"));
+                weiReplyCustom.setArticleID(jo.getString("articleID"));
+                weiReplyCustom.setWcontent(jo.getString("wcontent"));
+                MUser user = new MUser();
+                user.setName(jo.getString("username"));
+                user.setHeadImg(URLAddress.getRealUrlImg(jo.getString("headImg")));
+                weiReplyCustom.setUser(user);
+            customs.add(weiReplyCustom);
             }
-            return movies;
+            return customs;
         }
         catch (JSONException e) {
             e.printStackTrace();

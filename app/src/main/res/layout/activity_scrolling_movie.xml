@@ -9,7 +9,6 @@
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
-
         android:layout_gravity="center_horizontal"
         android:visibility="visible"
         android:layout_width="wrap_content"

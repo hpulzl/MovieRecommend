@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/mLoveMovieImageView"
         android:src="@mipmap/image4"
         android:layout_width="100dp"
@@ -28,7 +28,7 @@
             android:textColor="#000000"
             android:text="寻龙诀"
             android:layout_width="wrap_content"
-            android:layout_height="20dp" />
+            android:layout_height="25dp" />
         <TextView
             android:id="@+id/directorTextView"
             android:layout_below="@id/movieTextView"
@@ -40,7 +40,9 @@
             android:id="@+id/roleTextView"
             android:layout_marginTop="10dp"
             android:layout_below="@id/directorTextView"
-            android:text="主演:嘻嘻嘻"
+            android:maxLength="15"
+            android:ellipsize="end"
+            android:text="主演:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
@@ -52,7 +54,7 @@
             android:layout_height="35dp" />
         <TextView
             android:id="@+id/personNumTextView"
-            android:text="1234人收藏"
+            android:text="1234人下载"
             android:layout_below="@id/collectionMovie"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"

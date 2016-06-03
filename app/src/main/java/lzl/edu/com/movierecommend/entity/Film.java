@@ -1,8 +1,8 @@
 package lzl.edu.com.movierecommend.entity;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Film {
+public class Film implements Serializable{
 	private String filmID;
 	private String name;
 	private int hot;
@@ -13,7 +13,7 @@ public class Film {
 	private String timeOn;
 	private String description;
 	private String language;
-	private int type;
+	private String type;
 	private String imagepath;
 	
 	public String getFilmID() {
@@ -76,10 +76,10 @@ public class Film {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	public int getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public String getImagepath() {

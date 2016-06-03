@@ -1,6 +1,8 @@
 package lzl.edu.com.movierecommend.entity;
 
-public class Weiping {
+import java.io.Serializable;
+
+public class Weiping implements Serializable{
 	private String articleID;
 	private String filmID;
 	private String userID;

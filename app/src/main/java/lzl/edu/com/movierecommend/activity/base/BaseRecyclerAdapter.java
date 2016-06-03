@@ -27,9 +27,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private static final int TYPE_FOOTER = 2;
     private View headerView;
     private View footerView;
-    private int dataSize;
+    private int totalList;
     private OnItemOnclickListener onItemOnclickListener;
-
     public interface OnItemOnclickListener{
         void onItemClick(View view,Object obj,int position);
     }
@@ -62,7 +61,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     public int getItemViewType(int position) {
         if(position==0 && headerView !=null){
             return TYPE_HEADER;
-        }else if(position==dataList.size()+1 && footerView!=null){
+        }else if(position+1==getItemCount() && footerView!=null){
             return TYPE_FOOTER;
         }
         return TYPE_NORMAL;
@@ -70,9 +69,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     //是否在滑动
     public BaseRecyclerAdapter(RecyclerView view, List<T> datas,int itemLayoutId){
         if(datas==null){
-            dataList = new ArrayList<T>();
+            this.dataList = new ArrayList<T>();
         }else{
-            dataList = datas;
+            this.dataList = datas;
         }
         this.itemLayoutId = itemLayoutId;
         this.mContext = view.getContext();
@@ -80,7 +79,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                //滑动
+                //滑动，RecyclerView.SCROLL_STATE_IDLE表示滑动停止
                 isScrolling = !(newState == RecyclerView.SCROLL_STATE_IDLE);
                 //没有滑动时开始加载数据
                 if(!isScrolling){
@@ -115,30 +114,30 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        if(headerView != null && getItemViewType(position) == TYPE_HEADER ){
-            return;
-        }
-        if(position == dataSize-1 && footerView !=null){
-            return;
+        if(getItemViewType(position)!=TYPE_NORMAL) {
+           return;
         }
         int p = getRealPosition(position);
-        convert(holder,dataList.get(p),p,isScrolling);
+        convert(holder, dataList.get(p), p, isScrolling);
         //设置点击事件
         holder.itemView.setOnClickListener(getOnClickListener(position));
     }
    @Override
    public int getItemCount() {
-       dataSize = dataList.size();
-       if(headerView!=null && footerView!=null){
-           dataSize = dataSize+2;
-
-           return dataSize;
-       }else if(headerView !=null ||footerView !=null){
-           dataSize = dataSize+1;
-
-           return dataSize;
+       if(dataList == null){
+           return 0;
        }
-       return dataSize;
+       if(headerView!=null && footerView!=null){
+           //头尾都不为空
+           totalList =  dataList.size()+2;
+       }else if(headerView ==null && footerView ==null){
+           //头尾都为空
+           totalList = dataList.size();
+       }else{
+           //头尾有一个不为空
+           totalList = dataList.size()+1;
+       }
+       return totalList;
    }
     public void setOnItemOnclickListener(OnItemOnclickListener l){
         onItemOnclickListener = l;
@@ -149,7 +148,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             @Override
             public void onClick(View v) {
                 if(onItemOnclickListener != null && v != null){
-                    onItemOnclickListener.onItemClick(v,dataList.get(position),position);
+                    onItemOnclickListener.onItemClick(v,dataList.get(getRealPosition(position)),getRealPosition(position));
                 }
             }
         };
@@ -161,5 +160,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             dataList = datas;
         }
         return this;
+    }
+    public void notifyLoadMore(){
+        this.notifyItemRemoved(getItemCount());
     }
 }

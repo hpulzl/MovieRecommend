@@ -25,7 +25,7 @@ public class CheckValidate {
     }
     public String checkPass(String passNum) {
         if(TextUtils.isEmpty(passNum)){ //密码为空
-            return CheckValidate.PASS_EMPTY;
+            return PASS_EMPTY;
         }else if(passNum.length()<6){
             return PASS_UNFORM;
         }

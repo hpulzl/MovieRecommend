@@ -30,6 +30,7 @@ public class Movie {
     //简介
     private String description;
 
+
     public String getTotalPerson() {
         return totalPerson;
     }

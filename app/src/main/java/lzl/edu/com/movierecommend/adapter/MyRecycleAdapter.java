@@ -1,6 +1,5 @@
 package lzl.edu.com.movierecommend.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import lzl.edu.com.movierecommend.entity.movieentity.Movie;
  */
 public class MyRecycleAdapter extends BaseRecyclerAdapter<Movie> {
     private static final String TAG="MyRecycleAdapter";
-    private Context mCxt;
     public MyRecycleAdapter(RecyclerView view, List<Movie> datas) {
         super(view, datas, R.layout.item_latestmovie);
     }

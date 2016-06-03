@@ -13,15 +13,19 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
- <ImageView
+ <de.hdodenhof.circleimageview.CircleImageView
      android:id="@+id/logo_imageView"
-     android:src="@mipmap/ic_launcher"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content" />
+     android:src="@mipmap/ic_userhead"
+     android:layout_marginTop="20dp"
+     android:layout_width="60dp"
+     app:civ_border_color="#ffffff"
+     android:layout_height="60dp"
+     app:civ_border_width="2dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/user_tv"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="修改资料"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />

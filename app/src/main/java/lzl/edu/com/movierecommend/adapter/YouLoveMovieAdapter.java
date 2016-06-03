@@ -21,11 +21,11 @@ public class YouLoveMovieAdapter extends BaseRecyclerAdapter<Movie> {
 
     @Override
     public void convert(RecyclerViewHolder holder, Movie item, int position, boolean isScrolling) {
-        holder.setImageResource(R.id.mLoveMovieImageView,item.getUrlImage());
+        holder.setNetWorkImageUrl(R.id.mLoveMovieImageView,item.getUrlImg(),super.mContext);
         holder.setText(R.id.directorTextView,item.getDirectorName());
         holder.setText(R.id.movieTextView,item.getMovieName());
         holder.setText(R.id.roleTextView,item.getRoleName());
-//        holder.setText(R.id.personNumTextView,item.getCollectionPersonNum()+"");
+        holder.setText(R.id.personNumTextView,item.getTotalPerson()+"");
         holder.setImageResource(R.id.collectionMovie,R.drawable.select_collection);
 
         setClick(holder);

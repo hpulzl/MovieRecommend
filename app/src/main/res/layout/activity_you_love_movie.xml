@@ -3,10 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lzl.edu.com.movierecommend.activity.fragment.HotMovieActivity">
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/youLoveRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-</android.support.v7.widget.RecyclerView>
+    tools:context="lzl.edu.com.movierecommend.activity.fragment.YouLoveMovieFragment">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/loveFreshLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/loveMovieRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <TextView
+        android:id="@+id/reLoadData_tv"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:text="重新加载数据"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

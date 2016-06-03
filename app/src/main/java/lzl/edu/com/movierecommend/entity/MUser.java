@@ -3,7 +3,7 @@ package lzl.edu.com.movierecommend.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable{
+public class MUser implements Serializable{
 	private String userID;
 	private String name;
 	private String password;
@@ -18,6 +18,15 @@ public class User implements Serializable{
 	private int fansNum;
 	private int weipingNum;
 	private String headImg;
+	private boolean myFriend;
+
+
+	public boolean isMyFriend() {
+		return myFriend;
+	}
+	public void setMyFriend(boolean myFriend) {
+		this.myFriend = myFriend;
+	}
 	
 	public String getUserID() {
 		return userID;
@@ -103,5 +112,24 @@ public class User implements Serializable{
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "MUser{" +
+				"userID='" + userID + '\'' +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", Email='" + Email + '\'' +
+				", sex=" + sex +
+				", age=" + age +
+				", brithday='" + brithday + '\'' +
+				", province='" + province + '\'' +
+				", city='" + city + '\'' +
+				", registerDate=" + registerDate +
+				", followingNum=" + followingNum +
+				", fansNum=" + fansNum +
+				", weipingNum=" + weipingNum +
+				", headImg='" + headImg + '\'' +
+				'}';
+	}
 }

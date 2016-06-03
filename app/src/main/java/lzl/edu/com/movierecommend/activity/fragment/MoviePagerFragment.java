@@ -47,13 +47,9 @@ public class MoviePagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        view = inflater.inflate(R.layout.activity_movie_page, container, false);
         mActivity = getActivity();
-        initView();
         initToolBar();
         createFragment();
         return view;
-    }
-    private void initView(){
-
     }
     /**
      * 创建Fragment的方法
@@ -97,27 +93,6 @@ public class MoviePagerFragment extends Fragment {
 
 //        toolbarClick();
     }
-   /* private void toolbarClick(){
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ab_search:
-                        Toast.makeText(mActivity,"查询",Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.action_login:
-                        Toast.makeText(mActivity,"分享",Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.action_logout:
-                        Toast.makeText(mActivity,"设置",Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-    }*/
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
